@@ -1,25 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const [clickCount, setClickCount] = useState(0);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const handleButtonClick = () => {
+      setClickCount(clickCount + 1);
+     if (clickCount > 7 && (clickCount % 7) == 0) {
+      setDarkMode(true);
+     setClickCount(clickCount + 1); 
+    } else {
+      setDarkMode(false);
+    }
+  };
+  const handleStartOver = () => {
+    setClickCount(0);
+    setDarkMode(false);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`App ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+      <h1>Click Count: {clickCount}</h1>
+      <button onClick={handleButtonClick}>Click Me</button>
+      <button onClick={handleStartOver}>Start Over</button>
     </div>
   );
 }
 
 export default App;
+
